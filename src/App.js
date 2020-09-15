@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import MovieCard from "./MovieCard";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+  const [searchMovie, setSearchMovie] = useState("Ironman");
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=9db20ba3bf248415e9cfb0518a034233&language=en-US&query=${
+        searchMovie || "to"
+      }&page=1&include_adult=false`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data.results);
+        setMovies(data.results);
+      });
+  }, [searchMovie]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="spacear wrap">
+        <SearchBar searchMovie={searchMovie} setSearchMovie={setSearchMovie} />
+        {movies.map((movie) => (
+          <MovieCard title={movie.title} image={movie.poster_path} />
+        ))}
+      </div>
+    </>
   );
 }
 
