@@ -7,6 +7,7 @@ const SearchBar = (props) => {
   };
   return (
     <div className="navbar">
+      <p>Search your fav movie</p>
       <input
         className="input"
         type="text"

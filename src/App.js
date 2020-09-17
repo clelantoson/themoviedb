@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import MovieCard from "./MovieCard";
+import SearchBar from "./SearchBar";
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [searchMovie, setSearchMovie] = useState("Ironman");
+  const [searchMovie, setSearchMovie] = useState("black");
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=9db20ba3bf248415e9cfb0518a034233&language=en-US&query=${
